@@ -93,8 +93,38 @@ class SortingRobot:
         return self._light == "ON"
 
     def sort(self):
-        pass
-       
+        while True:
+            self.swap_item()
+            self.move_right()
+            #very first swap^^
+
+            #if there are more swaps needed keep on going
+            if self.compare_item() == 1:
+                self.swap_item()
+                self.move_left()
+                self.swap_item()
+                self.move_right()
+                self.set_light_on()
+                
+                #if the swap was not needed, then fix it
+            else:
+                self.move_left()
+                self.swap_item()
+                self.move_right()
+
+            #Robot has reached the end
+            if not self.can_move_right():
+                if not self.light_is_on():
+                    break #ends current loop
+
+                    #there are still changes that need to be made
+                else:
+                    while self.can_move_left():
+                        self.move_left()
+                    self.set_light_off()
+
+                    #holy cow, so much swapping and moving!!! This was a lot of fun, but man was it more complicated than I initially thought it was going to be! I'm not 100% sure, but was this a virutal bubble sort??
+
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
